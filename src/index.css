@@ -1,0 +1,54 @@
+@import "tailwindcss";
+#root {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+:root {
+  font-family: "Poppins", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #1e1f1c;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .movies_container {
+    @apply flex flex-wrap justify-center gap-4 rounded-4xl;
+    .movie_card {
+      @apply relative flex h-[300px] w-[200px] flex-col justify-between overflow-hidden rounded-2xl border-4 border-gray-800 bg-cover bg-center bg-no-repeat p-2 shadow-lg;
+      .movie_card-btn {
+        @apply cursor-pointer rounded-4xl bg-gray-800 p-2;
+      }
+      .movie_card-gradient {
+        @apply absolute bottom-0 left-0 z-0 h-1/2 w-full bg-gradient-to-t from-black via-black/60 to-transparent;
+      }
+    }
+  }
+  .movie_page {
+    @apply relative overflow-hidden rounded-4xl bg-cover bg-center bg-no-repeat p-6 md:p-10;
+
+    .movie_page-gradient {
+      @apply absolute bottom-0 left-0 z-0 h-full w-full bg-gradient-to-t from-[#121311f6] from-40% via-[#121311f6] via-30% to-[#1e1f1c09] to-100%;
+      box-shadow: inset 0px 0px 120px 50px rgba(255, 255, 255, 0.1);
+    }
+  }
+  .modal {
+    @apply fixed top-0 left-0 z-10 h-full w-full flex-col items-center justify-center gap-1 bg-black/50 align-middle backdrop-blur-sm;
+    .modal_card {
+      @apply relative rounded-4xl bg-gray-700 p-4 shadow-2xl shadow-black;
+      .modal_row {
+        @apply absolute top-[-40px] right-0 mb-2 flex items-end justify-end;
+      }
+    }
+  }
+  .btn_close {
+    @apply cursor-pointer rounded-xl bg-red-900 px-4 py-1;
+  }
+}
