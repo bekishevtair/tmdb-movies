@@ -14,8 +14,8 @@ const MoviePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const movieData = useSelector((store: RootState) => store.movie.movieData);
   const { id } = useParams<{ id: string }>();
-  const cachedMoviesData = useSelector(
-    (store: RootState) => store.movie.cachedMoviesData,
+  const { cachedMoviesData, trailerKey } = useSelector(
+    (store: RootState) => store.movie,
   );
   const bannerUrl = `https://image.tmdb.org/t/p/original${movieData?.backdrop_path}`;
 

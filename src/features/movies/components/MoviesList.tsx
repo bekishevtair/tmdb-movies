@@ -2,16 +2,12 @@ import { memo } from "react";
 import MovieCard from "./MovieCard";
 import { shallowEqual, useSelector } from "react-redux";
 import type { RootState } from "../../../store/store";
+import type { InterfaceMovie } from "../types/InterfaceMovie";
 
-const MoviesList = () => {
-  const movies = useSelector(
-    (store: RootState) => store.movies.moviesList,
-    shallowEqual,
-  );
-
+const MoviesList = ({ movies }: any) => {
   return (
     <ul className="movies_container">
-      {movies.map((movie) => {
+      {movies.map((movie: any) => {
         return <MovieCard key={movie.id} movie={movie} />;
       })}
     </ul>

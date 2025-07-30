@@ -15,7 +15,6 @@ const fetchMovieData = createAsyncThunk<InterfaceMovie, number>(
   "movie/fetchMovieData",
   async (id) => {
     const movieData = await getMovieData(id);
-    console.log(movieData);
     return movieData;
   },
 );

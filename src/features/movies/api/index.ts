@@ -1,20 +1,23 @@
-import { AUTHORIZATION } from "../../../constants/constants";
+import { API_KEY, AUTHORIZATION } from "../../../constants/constants";
 import type { InterfaceVideo } from "../types/InterfaceVideo";
 import type { InterfaceMovie } from "../types/InterfaceMovie";
 
-const getOptions = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization: AUTHORIZATION,
-  },
+const options = (method: string) => {
+  return {
+    method: method,
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+      Authorization: AUTHORIZATION,
+    },
+  };
 };
 
 export const getTrendingMovies = async (): Promise<InterfaceMovie[]> => {
   try {
     const data = await fetch(
       "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
-      getOptions,
+      options("GET"),
     );
     const res = await data.json();
     return res.results;
@@ -28,7 +31,7 @@ export const getMovieData = async (movieID: number | null): Promise<any> => {
   try {
     const movieData = await fetch(
       `https://api.themoviedb.org/3/movie/${movieID}?language=en-US`,
-      getOptions,
+      options("GET"),
     );
     const movie = await movieData.json();
     return movie;
@@ -44,7 +47,7 @@ export const getTrailerKey = async (
   try {
     const data = await fetch(
       `https://api.themoviedb.org/3/movie/${movieID}/videos?language=en-US`,
-      getOptions,
+      options("GET"),
     );
     const videos = await data.json();
     const trailerKey = videos.results.find(
@@ -53,5 +56,29 @@ export const getTrailerKey = async (
     return trailerKey;
   } catch (err) {
     throw new Error("Trailer not found for this movie.");
+  }
+};
+
+export const addFavorite = async (movieID: number | null) => {
+  if (!movieID) return null;
+  fetch(
+    "https://api.themoviedb.org/3/account/22166628/favorite",
+    options("POST"),
+  )
+    .then((res) => res.json())
+    .then((res) => console.log(res))
+    .catch((err) => console.error(err));
+};
+
+export const getFavoriteMovies = async () => {
+  try {
+    const data = await fetch(
+      "https://api.themoviedb.org/3/account/22166628/favorite/movies?language=en-US&page=1&sort_by=created_at.asc",
+      options("GET"),
+    );
+    const res = await data.json();
+    return res.results;
+  } catch (err) {
+    throw new Error("Failed fetching favorite movies");
   }
 };
